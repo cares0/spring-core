@@ -13,10 +13,16 @@ import spring.core.member.MemoryMemberRepository;
 public class OrderServiceImpl implements OrderService {
 
     //@Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     //@Autowired
-    private DiscountPolicy discountPolicy;
+    private final DiscountPolicy discountPolicy;
+
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
    /* @Autowired
     public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
@@ -33,12 +39,6 @@ public class OrderServiceImpl implements OrderService {
     public void setMemberRepository(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }*/
-
-    @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
