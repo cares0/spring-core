@@ -2,6 +2,7 @@ package spring.core.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import spring.core.discount.DiscountPolicy;
 import spring.core.discount.FixDiscountPolicy;
@@ -11,7 +12,7 @@ import spring.core.member.MemberRepository;
 import spring.core.member.MemoryMemberRepository;
 
 @Component
-@RequiredArgsConstructor
+// @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     //@Autowired
@@ -20,7 +21,12 @@ public class OrderServiceImpl implements OrderService {
     //@Autowired
     private final DiscountPolicy discountPolicy;
 
-   /* @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+
+    /* @Autowired
     public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
